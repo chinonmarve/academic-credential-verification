@@ -1,0 +1,26 @@
+ZERO-KNOWLEDGE ACADEMIC CREDENTIAL VERIFICATION PROTOTYPE
+
+QUICK START
+
+Windows:
+1. Double-click START.bat.
+2. The system installs missing dependencies, builds the frontend, starts the backend and opens the website in your default browser.
+3. Open: http://localhost:5000/
+
+Mac / Linux:
+1. Run: ./START.sh
+2. The script installs missing dependencies, builds the frontend, starts the backend and opens the website.
+
+IMPORTANT FOR PHONE QR TESTING
+Set PUBLIC_BASE_URL in backend/.env to the real public HTTPS address before issuing new credentials. Example:
+PUBLIC_BASE_URL=https://your-domain.com
+
+Then rebuild/restart the backend and issue a new credential. Existing QR codes generated with localhost will only work from the machine running the local server.
+
+DEMO LOGIN
+University: admin@delsu.edu.ng / University@123
+Student: student@delsu.edu.ng / Student@123
+Employer: verifier@marveltech.com / Employer@123
+
+PUBLIC VERIFICATION
+The /verify page is public and does not require login. QR codes open the public verification page directly.
