@@ -1,0 +1,369 @@
+{
+  "users": [
+    {
+      "id": "USR-MUAQ0AIX-3E321E5C",
+      "name": "Delta State University Admin",
+      "email": "admin@delsu.edu.ng",
+      "passwordHash": "$2a$10$Kx6xmI9yWF8q97G6GzdLJOtCfpaFkoWA2AmPWOFKJ2zIpsX62OLUW",
+      "role": "university",
+      "institutionId": "INS-MUAQ0AGF-CAF3827B",
+      "createdAt": "2026-09-21T04:03:45.609Z"
+    },
+    {
+      "id": "USR-MUAQ0AKX-E8C1E878",
+      "name": "Marvel Tech Recruitment",
+      "email": "verifier@marveltech.com",
+      "passwordHash": "$2a$10$xNuKWIHqfM3vrIx/8Nw1Ce2JGLAYiRiZNp1H4LXxGZkJ8Y.u2Orzm",
+      "role": "employer",
+      "createdAt": "2026-09-21T04:03:45.681Z"
+    },
+    {
+      "id": "USR-MUAQ0AMX-E6CA8FF4",
+      "name": "Chidinma Okafor",
+      "email": "student@delsu.edu.ng",
+      "passwordHash": "$2a$10$iG2neEJoB5kta2oYrkjO0.8sjDRgd/oM/CrmGPxMSZVb4ZZfnP4qy",
+      "role": "student",
+      "studentRecordId": "STU-MUAQ0AKY-B4F6669B",
+      "institutionId": "INS-MUAQ0AGF-CAF3827B",
+      "createdAt": "2026-09-21T04:03:45.753Z"
+    },
+    {
+      "id": "USR-MUAQ0AOS-E6EEA39C",
+      "name": "Efe Emmanuel",
+      "email": "efe.student@delsu.edu.ng",
+      "passwordHash": "$2a$10$OgrTyFzCcupeY1DJQDsyreIS255jRbh8I5PHK777p7FNCnTF.wrmS",
+      "role": "student",
+      "studentRecordId": "STU-MUAQ0AMX-870173CC",
+      "institutionId": "INS-MUAQ0AGF-CAF3827B",
+      "createdAt": "2026-09-21T04:03:45.820Z"
+    }
+  ],
+  "institutions": [
+    {
+      "id": "INS-MUAQ0AGF-CAF3827B",
+      "name": "Delta State University",
+      "institutionCode": "DELSU",
+      "did": "did:acv:institution:fde41eb881ee7e9102cb6fdc0495b179",
+      "publicKey": "pk_e82d18cc971df8660fbe1d54e5a84f405f6908fd75ab1c18",
+      "issuerSecret": "issuer_6b75b48be234556eb02588ebcda328af5f572ea215bf38ff",
+      "status": "active",
+      "vcName": "Prof. A. E. Okoro",
+      "registrarName": "Mrs. F. N. Adekunle"
+    }
+  ],
+  "students": [
+    {
+      "id": "STU-MUAQ0AKY-B4F6669B",
+      "userId": "USR-MUAQ0AMX-E6CA8FF4",
+      "studentId": "DELSU/2021/CSC/014",
+      "fullName": "Chidinma Okafor",
+      "programme": "B.Sc. Computer Science",
+      "department": "Computer Science",
+      "faculty": "Faculty of Science",
+      "did": "did:acv:student:d59b8c0e30c3f088979bf09b06213916",
+      "institutionId": "INS-MUAQ0AGF-CAF3827B",
+      "status": "active",
+      "dateRegistered": "2026-09-21T04:03:45.753Z"
+    },
+    {
+      "id": "STU-MUAQ0AMX-870173CC",
+      "userId": "USR-MUAQ0AOS-E6EEA39C",
+      "studentId": "DELSU/2020/MCM/031",
+      "fullName": "Efe Emmanuel",
+      "programme": "B.Sc. Mass Communication",
+      "department": "Mass Communication",
+      "faculty": "Faculty of Social Sciences",
+      "did": "did:acv:student:74118d03a4b12ca56ec5a035ef771d5b",
+      "institutionId": "INS-MUAQ0AGF-CAF3827B",
+      "status": "active",
+      "dateRegistered": "2026-09-21T04:03:45.821Z"
+    }
+  ],
+  "credentials": [
+    {
+      "id": "CRED-MUAQ0AOT-B7523A5C",
+      "credentialId": "CRED-MUAQ0AOT-B7523A5C",
+      "studentId": "STU-MUAQ0AKY-B4F6669B",
+      "studentDid": "did:acv:student:d59b8c0e30c3f088979bf09b06213916",
+      "issuerId": "INS-MUAQ0AGF-CAF3827B",
+      "issuerDid": "did:acv:institution:fde41eb881ee7e9102cb6fdc0495b179",
+      "credentialType": "Bachelor's Degree",
+      "qualification": "B.Sc. Computer Science (Second Class Upper)",
+      "issueDate": "2026-09-21T04:03:45.877Z",
+      "graduationDate": "2025-11-14",
+      "committedFields": {
+        "studentName": {
+          "value": "Chidinma Okafor",
+          "salt": "6ffadec14f29095c",
+          "commitment": "49567ffda49cd16022fcc9db1acdb01656f8a6d3150cf408ea35b40cb21d40b3"
+        },
+        "studentIdNumber": {
+          "value": "DELSU/2021/CSC/014",
+          "salt": "2afd57bd11e15c55",
+          "commitment": "e911ed4656b698d3ab0457eaf44f7edd7af73b0d954bb2c977b9522656a94c5f"
+        },
+        "institution": {
+          "value": "Delta State University",
+          "salt": "b2f1087260f730a8",
+          "commitment": "cb745de1ee4d1328d353070f75b2c65d662c00ba8d6024d42ce2dddee40bb323"
+        },
+        "faculty": {
+          "value": "Faculty of Science",
+          "salt": "2c8314953687d5c5",
+          "commitment": "4a309ebcecff3e575bdb861b06f083ab812381ea30320388d8ddd207b822cf8d"
+        },
+        "department": {
+          "value": "Computer Science",
+          "salt": "4f9054440e2248bf",
+          "commitment": "37be469a5c8dd697185358351363976ce535608c2437bad51f5d55f63310e593"
+        },
+        "programme": {
+          "value": "B.Sc. Computer Science",
+          "salt": "8900b9c8613c33f3",
+          "commitment": "dcd4787298829022d8245d33a6e92359e5889f8d88be9fabf1efaaf7e219c6c0"
+        },
+        "qualification": {
+          "value": "B.Sc. Computer Science (Second Class Upper)",
+          "salt": "547d9315963f8739",
+          "commitment": "8d8a41450f9b902b7aa57bbea66e8a76c1515745d27539b8d0b9209534a54b84"
+        },
+        "credentialType": {
+          "value": "Bachelor's Degree",
+          "salt": "847a19282dbe267f",
+          "commitment": "2156468fbc201cfa741f0b0b26b0929a0832e2546606eed1972832a75ede8127"
+        },
+        "graduationDate": {
+          "value": "2025-11-14",
+          "salt": "6bc2c00115926707",
+          "commitment": "c3576e5e204cc73daa094227dad8a3696f4e542642e9ec82b228c90ee95849e9"
+        },
+        "gpa": {
+          "value": "4.42",
+          "salt": "26a48815fa16f1d4",
+          "commitment": "96ac12f1b0052c4ba4f0a1086ee140e8b93bcce19c9ac1ccd80723fea0a53301"
+        },
+        "dateOfBirth": {
+          "value": "2000-03-18",
+          "salt": "313888c770d10dbc",
+          "commitment": "a2f2ac1bef811d2c4983c5cdef022a2a3dd19bc322c00d331d7973b720318903"
+        },
+        "graduationStatus": {
+          "value": "Graduated",
+          "salt": "8f4e36a099d9dae8",
+          "commitment": "0e92d07a4869457a0ecfada3a9c920aacb9bdbefcb80adc1d5c6d5b5671f8a05"
+        },
+        "vcName": {
+          "value": "Prof. A. E. Okoro",
+          "salt": "848b71bd9c684cb8",
+          "commitment": "e74e5bd8fc7d2beae9e3f9d15f556ddaf3d2e230c8bc0aee3afa09cde6719091"
+        },
+        "registrarName": {
+          "value": "Mrs. F. N. Adekunle",
+          "salt": "99914e0f1550a9c0",
+          "commitment": "ade174ccfb0c1029c81dde549b009f3b501c71a2c4e0d18390181820fc28afb1"
+        }
+      },
+      "credentialHash": "89e997c061bf19600ea313d8ffc9100f898b6511007d46b4994cdc5a73990b03",
+      "signature": "sig_4bc85cf100cade89910cceadfb83712eb290cb3cb28e164bf6b2e490938c923f",
+      "blockchainReference": "0x00f3a52cf8ba396440bd03d1053d81ef47468c4a0b6cb62a6dab2d65415cf5ba",
+      "blockNumber": 1000001,
+      "status": "active",
+      "qrDataUrl": "data:image/png;base64,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",
+      "createdAt": "2026-09-21T04:03:45.877Z",
+      "revokedAt": null,
+      "revocationReason": null
+    },
+    {
+      "id": "CRED-MUAQ0AQE-741CAA03",
+      "credentialId": "CRED-MUAQ0AQE-741CAA03",
+      "studentId": "STU-MUAQ0AMX-870173CC",
+      "studentDid": "did:acv:student:74118d03a4b12ca56ec5a035ef771d5b",
+      "issuerId": "INS-MUAQ0AGF-CAF3827B",
+      "issuerDid": "did:acv:institution:fde41eb881ee7e9102cb6fdc0495b179",
+      "credentialType": "Bachelor's Degree",
+      "qualification": "B.Sc. Mass Communication (First Class)",
+      "issueDate": "2026-09-21T04:03:45.893Z",
+      "graduationDate": "2024-11-22",
+      "committedFields": {
+        "studentName": {
+          "value": "Efe Emmanuel",
+          "salt": "01264ca0539458ca",
+          "commitment": "e32b0fd89adc8e1eacc7873b12800698050adbea01377e11a1e059613ba8540f"
+        },
+        "studentIdNumber": {
+          "value": "DELSU/2020/MCM/031",
+          "salt": "a345d34cd1acb9f1",
+          "commitment": "157ed4c841d4d92a4de7b69a39908448034aa0f491ff2b1c012b7bc8e26d33c5"
+        },
+        "institution": {
+          "value": "Delta State University",
+          "salt": "b10013505ed20f4c",
+          "commitment": "0fd80bce1725c62b8c93e675614f8622fac851948f590d84acff9854e1473120"
+        },
+        "faculty": {
+          "value": "Faculty of Social Sciences",
+          "salt": "7c8ea0cad56030d1",
+          "commitment": "5094c0d00a7df742145b020447585801e790574ef32acc6323190d488a1f2f40"
+        },
+        "department": {
+          "value": "Mass Communication",
+          "salt": "b261a5cb79e85c30",
+          "commitment": "102009925245930d7e006ae6e0bceaac187583a76b91b451c5f995b75629dabc"
+        },
+        "programme": {
+          "value": "B.Sc. Mass Communication",
+          "salt": "a5f27c8a2ba36097",
+          "commitment": "81a5c6744f474731026a32cdd0d0ca1b51b53eb350502c4393b38884b301040d"
+        },
+        "qualification": {
+          "value": "B.Sc. Mass Communication (First Class)",
+          "salt": "26f80bf0d56a7263",
+          "commitment": "2890dfffc7927bc2b21c6ed5dd430710fbce4eac033fe26f63f5a0f0b97ee573"
+        },
+        "credentialType": {
+          "value": "Bachelor's Degree",
+          "salt": "b7077634efc61298",
+          "commitment": "94e649ff764b9a5c4931f19343ee2698a1b735cd45015e20bce8f8f5728cad7e"
+        },
+        "graduationDate": {
+          "value": "2024-11-22",
+          "salt": "b69833311a7aab09",
+          "commitment": "3eb72d2a96e3c266522e148cf195faed71a82b121536acc6ca54cb1cd9c7aee0"
+        },
+        "gpa": {
+          "value": "4.71",
+          "salt": "35653f8fbce2f3a0",
+          "commitment": "6c781c21dff3ca412d14d6d1d4130f1b75179f9b744cd1d026993e3adf15862e"
+        },
+        "dateOfBirth": {
+          "value": "1999-07-02",
+          "salt": "f28cebf30465df3f",
+          "commitment": "c1c5c71754d3a60322fb03df65b32ec5edf2c03f0eced4faf677d39d8ec12924"
+        },
+        "graduationStatus": {
+          "value": "Graduated",
+          "salt": "8d3c25ca6390c20e",
+          "commitment": "f24675903742792a65118c5653dc5dbd9aa42df8d5410689265f5a343bdf97d9"
+        },
+        "vcName": {
+          "value": "Prof. A. E. Okoro",
+          "salt": "e3a098878ff54e51",
+          "commitment": "8ddd75291b7064c5a95e0eecaead1e477efcf7da1a8a6ff542bb0d865cd8d751"
+        },
+        "registrarName": {
+          "value": "Mrs. F. N. Adekunle",
+          "salt": "9dcbb54cc1af1e8d",
+          "commitment": "7c0cc16a5001cbf573df188481c19c7351114904b51cb448815d600618f64b5b"
+        }
+      },
+      "credentialHash": "a427168bddf57ea0b79955e0c834c44ae111dc494bcafb7be0259b02802472bf",
+      "signature": "sig_0d2f0354b94294e42ec6316c4d36add366f6ae157f0e2a1d9191b69612fa0eea",
+      "blockchainReference": "0x2950fcdca311c7f15cbfe0630389d9b7b7b6fc95c26fe61595f9138fb3e50599",
+      "blockNumber": 1000002,
+      "status": "revoked",
+      "qrDataUrl": "data:image/png;base64,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",
+      "createdAt": "2026-09-21T04:03:45.893Z",
+      "revokedAt": "2026-09-21T04:03:45.893Z",
+      "revocationReason": "Issued in error - duplicate record"
+    }
+  ],
+  "verificationLogs": [],
+  "blockchainRecords": [
+    {
+      "id": "BLK-1000001",
+      "credentialId": "CRED-MUAQ0AOT-B7523A5C",
+      "credentialHash": "89e997c061bf19600ea313d8ffc9100f898b6511007d46b4994cdc5a73990b03",
+      "eventType": "ISSUANCE",
+      "transactionHash": "0x00f3a52cf8ba396440bd03d1053d81ef47468c4a0b6cb62a6dab2d65415cf5ba",
+      "blockNumber": 1000001,
+      "blockHash": "0xf6817dd4164e4f18f8fdf489eadaf639fd3774a6fdeb06e3f797c3d456990fa6",
+      "prevBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "network": "Simulated Ethereum-Compatible Network",
+      "status": "confirmed",
+      "timestamp": "2026-09-21T04:03:45.822Z"
+    },
+    {
+      "id": "BLK-1000002",
+      "credentialId": "CRED-MUAQ0AQE-741CAA03",
+      "credentialHash": "a427168bddf57ea0b79955e0c834c44ae111dc494bcafb7be0259b02802472bf",
+      "eventType": "ISSUANCE",
+      "transactionHash": "0x2950fcdca311c7f15cbfe0630389d9b7b7b6fc95c26fe61595f9138fb3e50599",
+      "blockNumber": 1000002,
+      "blockHash": "0xe85458cc47fbfcecf7ef35bc087d699492d144569c1e62d24ac345870eab8148",
+      "prevBlockHash": "0xf6817dd4164e4f18f8fdf489eadaf639fd3774a6fdeb06e3f797c3d456990fa6",
+      "network": "Simulated Ethereum-Compatible Network",
+      "status": "confirmed",
+      "timestamp": "2026-09-21T04:03:45.878Z"
+    },
+    {
+      "id": "BLK-1000003",
+      "credentialId": "CRED-MUAQ0AQE-741CAA03",
+      "credentialHash": "a427168bddf57ea0b79955e0c834c44ae111dc494bcafb7be0259b02802472bf",
+      "eventType": "REVOCATION",
+      "transactionHash": "0xca53a9df2087c2bb52ad97b25198aad741004c9515f4ddff89afa12f2fed974d",
+      "blockNumber": 1000003,
+      "blockHash": "0xa0528f92ee7021b41d560f1b34d691e262844f7d951403269fac97852c84c869",
+      "prevBlockHash": "0xe85458cc47fbfcecf7ef35bc087d699492d144569c1e62d24ac345870eab8148",
+      "network": "Simulated Ethereum-Compatible Network",
+      "status": "confirmed",
+      "timestamp": "2026-09-21T04:03:45.893Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "AUD-MUAQ0AQE-16353522",
+      "event": "Credential Issued",
+      "userLabel": "Delta State University",
+      "credentialId": "CRED-MUAQ0AOT-B7523A5C",
+      "result": "success",
+      "reference": "0x00f3a52cf8ba396440bd03d1053d81ef47468c4a0b6cb62a6dab2d65415cf5ba",
+      "timestamp": "2026-09-21T04:03:45.878Z"
+    },
+    {
+      "id": "AUD-MUAQ0AQT-D68C3811",
+      "event": "Credential Issued",
+      "userLabel": "Delta State University",
+      "credentialId": "CRED-MUAQ0AQE-741CAA03",
+      "result": "success",
+      "reference": "0x2950fcdca311c7f15cbfe0630389d9b7b7b6fc95c26fe61595f9138fb3e50599",
+      "timestamp": "2026-09-21T04:03:45.893Z"
+    },
+    {
+      "id": "AUD-MUAQ0AQT-2957C9ED",
+      "event": "Credential Revoked",
+      "userLabel": "University Administrator",
+      "credentialId": "CRED-MUAQ0AQE-741CAA03",
+      "result": "success",
+      "reference": "Issued in error - duplicate record",
+      "timestamp": "2026-09-21T04:03:45.893Z"
+    },
+    {
+      "id": "AUD-MUAQ0EVA-6B065BB0",
+      "event": "User Login",
+      "userLabel": "Delta State University Admin",
+      "credentialId": null,
+      "result": "success",
+      "reference": null,
+      "timestamp": "2026-09-21T04:03:51.238Z"
+    },
+    {
+      "id": "AUD-MUAQ0ONF-CDC305A1",
+      "event": "User Login",
+      "userLabel": "Delta State University Admin",
+      "credentialId": null,
+      "result": "success",
+      "reference": null,
+      "timestamp": "2026-09-21T04:04:03.915Z"
+    },
+    {
+      "id": "AUD-MUATCJ9I-AD7DF417",
+      "event": "User Login",
+      "userLabel": "Delta State University Admin",
+      "credentialId": null,
+      "result": "success",
+      "reference": null,
+      "timestamp": "2026-09-21T05:37:15.654Z"
+    }
+  ],
+  "presentations": []
+}
