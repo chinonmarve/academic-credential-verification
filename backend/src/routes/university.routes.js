@@ -14,6 +14,26 @@ function getInstitution(req) {
   return db.findOne("institutions", (i) => i.id === req.user.institutionId);
 }
 
+/**
+ * Student initial-password rule:
+ * - The first word entered in Full Name is treated as the surname/login name
+ *   for this prototype's credential rule.
+ * - It is uppercased.
+ * - Date of birth is appended as DDMMYYYY.
+ *
+ * Example: John Doe + 12 August 2005 => JOHN12082005.
+ */
+function buildStudentInitialPassword(fullName, dateOfBirth) {
+  const namePart = String(fullName || "").trim().split(/\s+/)[0].toUpperCase();
+  if (!namePart || !dateOfBirth) return null;
+
+  const match = String(dateOfBirth).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return null;
+
+  const [, year, month, day] = match;
+  return `${namePart}${day}${month}${year}`;
+}
+
 // ---- Students ----
 router.get("/students", (req, res) => {
   const institution = getInstitution(req);
@@ -27,9 +47,22 @@ router.get("/students", (req, res) => {
 
 router.post("/students", (req, res) => {
   const institution = getInstitution(req);
-  const { fullName, studentNumber, programme, department, faculty, email } = req.body;
-  if (!fullName || !studentNumber || !programme) {
-    return res.status(400).json({ error: "fullName, studentNumber and programme are required" });
+  const { fullName, studentNumber, programme, department, faculty, email, dateOfBirth } = req.body;
+
+  if (!fullName || !studentNumber || !programme || !email || !dateOfBirth) {
+    return res.status(400).json({
+      error: "Full name, student number, programme, email and date of birth are required"
+    });
+  }
+
+  const initialPassword = buildStudentInitialPassword(fullName, dateOfBirth);
+  if (!initialPassword) {
+    return res.status(400).json({ error: "Date of birth must be supplied in YYYY-MM-DD format" });
+  }
+
+  const existingUser = db.findOne("users", (u) => u.email.toLowerCase() === String(email).toLowerCase());
+  if (existingUser) {
+    return res.status(409).json({ error: "A user account already exists with this email address" });
   }
 
   const { did } = didService.generateDID("student");
@@ -40,6 +73,7 @@ router.post("/students", (req, res) => {
     userId: null,
     studentId: studentNumber,
     fullName,
+    dateOfBirth,
     programme,
     department: department || "N/A",
     faculty: faculty || "N/A",
@@ -50,22 +84,19 @@ router.post("/students", (req, res) => {
   };
   db.insert("students", student);
 
-  // Optional: create a login account for the student demo account
-  if (email) {
-    const passwordHash = bcrypt.hashSync("Student@123", 10);
-    const user = {
-      id: newId("USR"),
-      name: fullName,
-      email,
-      passwordHash,
-      role: "student",
-      studentRecordId: studentId,
-      institutionId: institution.id,
-      createdAt: new Date().toISOString()
-    };
-    db.insert("users", user);
-    db.update("students", studentId, { userId: user.id });
-  }
+  const passwordHash = bcrypt.hashSync(initialPassword, 10);
+  const user = {
+    id: newId("USR"),
+    name: fullName,
+    email,
+    passwordHash,
+    role: "student",
+    studentRecordId: studentId,
+    institutionId: institution.id,
+    createdAt: new Date().toISOString()
+  };
+  db.insert("users", user);
+  db.update("students", studentId, { userId: user.id });
 
   auditService.log({
     event: "Student Registered",
@@ -74,7 +105,13 @@ router.post("/students", (req, res) => {
     result: "success"
   });
 
-  res.status(201).json({ student });
+  res.status(201).json({
+    student,
+    loginDetails: {
+      email,
+      temporaryPassword: initialPassword
+    }
+  });
 });
 
 router.get("/students/:id", (req, res) => {
