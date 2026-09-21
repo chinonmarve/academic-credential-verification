@@ -8,38 +8,73 @@ const auditService = require("../services/auditService");
 const router = express.Router();
 
 router.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ error: "Email and password are required" });
+  try {
+    const { email, password } = req.body || {};
+
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
+
+    const normalizedEmail = String(email).trim().toLowerCase();
+    const user = db.findOne(
+      "users",
+      (u) => String(u.email || "").trim().toLowerCase() === normalizedEmail
+    );
+
+    if (!user || !user.passwordHash) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const match = bcrypt.compareSync(String(password), user.passwordHash);
+
+    if (!match) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+        role: user.role,
+        name: user.name,
+        institutionId: user.institutionId || null
+      },
+      JWT_SECRET,
+      { expiresIn: "8h" }
+    );
+
+    // Audit logging must never prevent a successful login.
+    try {
+      auditService.log({
+        event: "User Login",
+        userLabel: user.name,
+        result: "success"
+      });
+    } catch (auditError) {
+      console.error("Login audit logging failed:", auditError);
+    }
+
+    const { passwordHash, ...safeUser } = user;
+
+    return res.json({ token, user: safeUser });
+  } catch (error) {
+    console.error("Login error:", error);
+    return res.status(500).json({
+      error: "Login service error. Please try again."
+    });
   }
-
-  const user = db.findOne("users", (u) => u.email.toLowerCase() === String(email).toLowerCase());
-  if (!user) {
-    return res.status(401).json({ error: "Invalid email or password" });
-  }
-
-  const match = bcrypt.compareSync(password, user.passwordHash);
-  if (!match) {
-    return res.status(401).json({ error: "Invalid email or password" });
-  }
-
-  const token = jwt.sign(
-    { id: user.id, role: user.role, name: user.name, institutionId: user.institutionId || null },
-    JWT_SECRET,
-    { expiresIn: "8h" }
-  );
-
-  auditService.log({ event: "User Login", userLabel: user.name, result: "success" });
-
-  const { passwordHash, ...safeUser } = user;
-  res.json({ token, user: safeUser });
 });
 
 router.get("/me", requireAuth, (req, res) => {
-  const user = db.findOne("users", (u) => u.id === req.user.id);
-  if (!user) return res.status(404).json({ error: "User not found" });
-  const { passwordHash, ...safeUser } = user;
-  res.json({ user: safeUser });
+  try {
+    const user = db.findOne("users", (u) => u.id === req.user.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const { passwordHash, ...safeUser } = user;
+    return res.json({ user: safeUser });
+  } catch (error) {
+    console.error("Session lookup error:", error);
+    return res.status(500).json({ error: "Unable to load your session" });
+  }
 });
 
 module.exports = router;
