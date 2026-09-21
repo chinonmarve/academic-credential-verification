@@ -1,14 +1,13 @@
 /**
  * db.js
  * ---------------------------------------------------------------------------
- * The research architecture (Section 17/18) specifies MongoDB Atlas for
- * operational data. To keep this prototype runnable with zero external
- * services, we use a lightweight embedded JSON document store that mimics
- * MongoDB-style collections (arrays of documents with an `id`).
+ * Prototype data store.
  *
- * The rest of the codebase (services/, routes/) only talks to this module,
- * so swapping this file for a real Mongoose/MongoDB Atlas connection later
- * does not require touching business logic elsewhere.
+ * The research architecture specifies MongoDB Atlas for operational data.
+ * This prototype keeps its seeded data in JSON so it can run without an
+ * external database. Vercel serverless functions have a read-only deployment
+ * filesystem, so writes are kept in memory when disk persistence is unavailable.
+ * This preserves the prototype workflow while avoiding 500 errors in deployment.
  * ---------------------------------------------------------------------------
  */
 const fs = require("fs");
@@ -29,47 +28,63 @@ const DEFAULT_DATA = {
 
 function load() {
   if (!fs.existsSync(DB_PATH)) {
-    fs.writeFileSync(DB_PATH, JSON.stringify(DEFAULT_DATA, null, 2));
+    return { ...DEFAULT_DATA };
   }
-  const raw = fs.readFileSync(DB_PATH, "utf-8");
+
   try {
+    const raw = fs.readFileSync(DB_PATH, "utf-8");
     return JSON.parse(raw);
   } catch (e) {
+    console.error("Database load error:", e.message);
     return { ...DEFAULT_DATA };
   }
 }
 
 function save(data) {
-  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+  try {
+    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+    return true;
+  } catch (e) {
+    // Vercel deployments use a read-only filesystem. Keep the updated
+    // prototype state in memory rather than turning a successful operation
+    // into a 500 response.
+    console.warn("Database disk persistence unavailable:", e.message);
+    return false;
+  }
 }
 
-// In-memory cache, persisted to disk on every write (fine for prototype scale)
 let cache = load();
 
 const db = {
   get(collection) {
     return cache[collection] || [];
   },
+
   insert(collection, doc) {
     if (!cache[collection]) cache[collection] = [];
     cache[collection].push(doc);
     save(cache);
     return doc;
   },
+
   update(collection, id, patch) {
     const arr = cache[collection] || [];
     const idx = arr.findIndex((d) => d.id === id);
     if (idx === -1) return null;
+
     arr[idx] = { ...arr[idx], ...patch };
     save(cache);
     return arr[idx];
   },
+
   findOne(collection, predicate) {
     return (cache[collection] || []).find(predicate) || null;
   },
+
   find(collection, predicate) {
     return (cache[collection] || []).filter(predicate || (() => true));
   },
+
   reset() {
     cache = { ...DEFAULT_DATA };
     save(cache);
